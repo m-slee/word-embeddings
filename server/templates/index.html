@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Embeddings</title>
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+            body,
+            html {
+                min-height: 100vh;
+                background: #faf9f6;
+            }
+
+            * {
+                font-family: "Inter", sans-serif;
+                margin: 0;
+                padding: 0;
+                box-sizing: 0;
+            }
+
+            .mb-half {
+                margin-bottom: 0.5rem;
+            }
+
+            .mb-1 {
+                margin-bottom: 1rem;
+            }
+
+            .py-1 {
+                padding: 1rem 0;
+            }
+
+            .text-dark {
+                color: #292d29;
+            }
+
+            .text-light {
+                color: #737770;
+            }
+
+            .text-green {
+                color: #4d6b5f;
+            }
+
+            .side-margin {
+                margin-left: 20rem;
+                margin-right: 20rem;
+            }
+
+            form {
+                width: 100%;
+                display: flex;
+            }
+
+            form input {
+                flex: 1;
+                margin-top: 0.5rem;
+                padding: 1rem;
+            }
+
+            form button {
+                margin-top: 0.5rem;
+                background: #4d6b5f;
+                color: white;
+                border: none;
+                padding: 0.25rem 2rem;
+                cursor: pointer;
+            }
+
+            .border-bottom {
+                border-bottom: 1px solid #e1e3dc;
+            }
+
+            .text-bold {
+                font-weight: bold;
+            }
+
+            .results {
+                display: flex;
+                justify-content: space-between;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <section class="side-margin">
+                <div class="mb-1 py-1">
+                    <h1 class="text-dark mb-half">Find Similar Words</h1>
+                    <p class="text-light">
+                        Enter an English word to discover words with similar
+                        meanings.
+                    </p>
+                </div>
+
+                <div class="py-1 mb-1">
+                    <p class="text-dark">Your Word</p>
+                    <form action="/">
+                        <input
+                            name="word"
+                            type="text"
+                            {%
+                            if
+                            word
+                            %}
+                            value="{{ word }}"
+                            {%
+                            endif
+                            %}
+                        />
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+
+                {% if word %}
+                <div class="results border-bottom py-1">
+                    <p class="text-dark">{{ word }}</p>
+                    <p class="text-light">
+                        {{ similar_words|length }} words found
+                    </p>
+                </div>
+                <div>
+                    {% for similar in similar_words %}
+                    <p class="text-green border-bottom py-1 text-bold">
+                        {{ similar }}
+                    </p>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p>No word entered</p>
+                {% endif %}
+            </section>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,1 @@
+source ~/projects/python_projects/env/bin/activate
